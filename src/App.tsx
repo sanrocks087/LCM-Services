@@ -35,6 +35,7 @@ import {
   PhoneCall,
 } from 'lucide-react';
 import logo from './assets/LCM_Logo.jpeg';
+import ContactForm from "./components/ContactForm";
 
 const WHATSAPP_NUMBER1 = '918796538504';
 const WHATSAPP_NUMBER2 = '918796428504';
@@ -733,7 +734,7 @@ function ContactSection() {
 
     window.location.href = mailtoLink;
 
-    setTimeout(() => {
+    setTimeout(() => { 
       setIsSubmitting(false);
       setSubmitted(true);
       setFormData({ name: '', email: '', phone: '', building: '', message: '' });
@@ -741,6 +742,7 @@ function ContactSection() {
   };
 
   return (
+    <> <ContactForm />
     <section id="contact" className="py-16 md:py-24 bg-white">
       <div className="section-container">
         <h2 className="section-title">Get in <span className="gradient-text">Touch</span></h2>
@@ -900,6 +902,7 @@ function ContactSection() {
         </div>
       </div>
     </section>
+    </>
   );
 }
 

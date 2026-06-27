@@ -8,9 +8,9 @@ export const config = {
 
 interface ContactForm {
   name: string;
-  email: string;
-  phone?: string;
-  subject?: string;
+  email?: string;
+  phone: string;
+  buildingName: string;
   message: string;
 }
 
@@ -75,9 +75,9 @@ export default async function handler(
   try {
     const {
       name,
-      email,
-      phone = "",
-      subject = "Website Inquiry",
+      email = "",
+      phone,
+      buildingName,
       message,
     } = req.body as ContactForm;
 
@@ -98,16 +98,14 @@ export default async function handler(
     const safeName = escapeHtml(name.trim());
     const safeEmail = escapeHtml(email.trim());
     const safePhone = escapeHtml(phone.trim());
-    const safeSubject = escapeHtml(subject.trim());
+    const safebuildingName = escapeHtml(buildingName.trim());
     const safeMessage = escapeHtml(message.trim()).replace(/\n/g, "<br>");
 
     await transporter.sendMail({
       from: `"LCM Services Website" <${process.env.SMTP_USER}>`,
       to: process.env.MAIL_TO,
       replyTo: email,
-
-      subject: `New Contact Form - ${safeSubject}`,
-
+      subject: `New Inquiry - ${safeName}/{safePhone}`,
       text: `
 New Contact Form Submission
 
@@ -117,7 +115,7 @@ Email: ${email}
 
 Phone: ${phone || "N/A"}
 
-Subject: ${subject}
+Building Name: ${buildingName}
 
 Message:
 
@@ -158,7 +156,7 @@ ${message}
 
 <tr>
 <td style="padding:10px;font-weight:bold;">Subject</td>
-<td>${safeSubject}</td>
+<td>${safebuildingName}</td>
 </tr>
 
 <tr>

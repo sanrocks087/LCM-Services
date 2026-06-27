@@ -65,10 +65,6 @@ export default function ContactForm() {
     e: FormEvent<HTMLFormElement>
   ): Promise<void> => {
     e.preventDefault();
-     if (form.phone.length !== 10) {
-      setPhoneError("Please enter 10 digits number.");
-      return;
-    }
     setLoading(true);
     try {
       const response = await fetch("/api/contact", {
@@ -82,8 +78,7 @@ export default function ContactForm() {
       const result: ApiResponse = await response.json();
 
       if (result.success) {
-        alert("Message sent successfully.");
-
+        //alert("Message sent successfully.");
         setForm({
           name: "",
           email: "",
@@ -91,15 +86,17 @@ export default function ContactForm() {
           buildingName: "",
           message: "",
         });
+        setSubmitted(true);
       } else {
-        alert(result.message);
+        //alert(result.message);
+        setPhoneError(result.message);
       }
     } catch (error) {
-      console.error(error);
-      alert("Something went wrong.");
+      //console.error(error);
+      //alert("Something went wrong.");
+      setPhoneError("Something went wrong, please try after sometime.");
     } finally {
       setLoading(false);
-      setSubmitted(true);
     }
   };
 
@@ -114,6 +111,7 @@ export default function ContactForm() {
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="space-y-6">
+                
                 <div className="grid sm:grid-cols-2 gap-6">
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">Your Name *</label>
@@ -139,7 +137,7 @@ export default function ContactForm() {
                         onBlur={handleBlur}
                         className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
                     />
-                     {phoneError && <p style={{ color: 'red', fontSize: '14px' }}>{phoneError}</p>}
+                     
                   </div>
                 </div>
 
@@ -181,7 +179,7 @@ export default function ContactForm() {
                         className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors resize-none"
                     />
                 </div>
-
+                {phoneError && <p style={{ color: 'red', fontSize: '14px' }}>{phoneError}</p>}
                 <button
                   type="submit"
                   disabled={loading}

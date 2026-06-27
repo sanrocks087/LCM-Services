@@ -81,19 +81,26 @@ export default async function handler(
       message,
     } = req.body as ContactForm;
 
-    if (!name?.trim() || !email?.trim() || !message?.trim()) {
+    if (!name?.trim() || !phone?.trim() || !buildingName?.trim() || !message?.trim()) {
       return res.status(400).json({
         success: false,
-        message: "Name, email and message are required.",
+        message: "Name, Phone No, Building/Society/Area Name and Message are required.",
       });
     }
 
-    if (!validateEmail(email)) {
-      return res.status(400).json({
+    if (phone.length !== 10) {
+     return res.status(400).json({
         success: false,
-        message: "Please provide a valid email address.",
+        message: "Please provide a valid 10 digits number.",
       });
     }
+
+    // if (!validateEmail(email)) {
+    //   return res.status(400).json({
+    //     success: false,
+    //     message: "Please provide a valid email address.",
+    //   });
+    // }
 
     const safeName = escapeHtml(name.trim());
     const safeEmail = escapeHtml(email.trim());
@@ -104,16 +111,16 @@ export default async function handler(
     await transporter.sendMail({
       from: `"LCM Services Website" <${process.env.SMTP_USER}>`,
       to: process.env.MAIL_TO,
-      replyTo: email,
+      //replyTo: email,
       subject: `New Inquiry - ${safeName}/{safePhone}`,
       text: `
 New Contact Form Submission
 
 Name: ${name}
 
-Email: ${email}
+Email: ${email || "N/A"}
 
-Phone: ${phone || "N/A"}
+Phone: ${phone}
 
 Building Name: ${buildingName}
 

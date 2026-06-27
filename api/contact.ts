@@ -88,10 +88,10 @@ export default async function handler(
       });
     }
 
-    if ((/^\d*$/.test(phone)) && (phone.length !== 10)) {
-     return res.status(400).json({
+    if (phone?.length !== 10) {
+      return res.status(400).json({
         success: false,
-        message: "Please provide a valid 10 digits number.",
+        message: "Please provide a valid 10 digit phone number.",
       });
     }
 

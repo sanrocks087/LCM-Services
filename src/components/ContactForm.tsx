@@ -38,17 +38,19 @@ export default function ContactForm() {
     }));
   };
 
-  const handleBlur = (e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    if (e.target.name === "phone") {
-      if (form.phone.length > 0 && form.phone.length < 10) {
-        setPhoneError("Please enter 10 digits number.");
-      } else if (form.phone.length === 0) {
-        setPhoneError("Phone number is required.");
-      } else {
-        setPhoneError("");
-      }
-    }
-  };
+//   const handleBlur = (e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+//     if (e.target.name === "phone") {
+//       if (!(/^\d*$/.test(form.phone))){
+//         setPhoneError("Please enter a valid 10 digits number.");
+//       } else if (form.phone.length > 0 && form.phone.length < 10) {
+//         setPhoneError("Please enter a valid 10 digits number.");
+//       } else if (form.phone.length === 0) {
+//         setPhoneError("Phone number is required.");
+//       } else {
+//         setPhoneError("");
+//       }
+//     }
+//   };
 
   const handleSubmit = async (
     e: FormEvent<HTMLFormElement>
@@ -119,11 +121,12 @@ export default function ContactForm() {
                      <input
                         type="tel"
                         required
+                        title="Please provide a valid 10 digit phone number" 
+                        pattern="[1-9]{1}[0-9]{9}"
                         name="phone"
                         placeholder="10 digit Phone Number"
                         value={form.phone}
                         onChange={handleChange}
-                        onBlur={handleBlur}
                         className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
                     />
                      
@@ -168,7 +171,7 @@ export default function ContactForm() {
                         className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors resize-none"
                     />
                 </div>
-                {phoneError && <p style={{ color: 'red', fontSize: '14px', alignItems:"center" }}>{phoneError}</p>}
+                {phoneError && <p style={{ color: 'red', fontSize: '14px', textAlign:"center" }}>{phoneError}</p>}
                 <button
                   type="submit"
                   disabled={loading}

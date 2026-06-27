@@ -742,14 +742,14 @@ function ContactSection() {
   };
 
   return (
-    <> <ContactForm />
+    <> 
     <section id="contact" className="py-16 md:py-24 bg-white">
       <div className="section-container">
         <h2 className="section-title">Get in <span className="gradient-text">Touch</span></h2>
         <p className="section-subtitle">
-          Ready to transform your building maintenance? Contact us today.
+          Ready to transform your building maintenance? Contact us today..
         </p>
-
+        <ContactForm />
         <div className="grid lg:grid-cols-2 gap-12">
           <div>
             <div className="bg-gradient-to-br from-primary-50 to-secondary-50 rounded-3xl p-8 h-full">

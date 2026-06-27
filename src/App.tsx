@@ -36,9 +36,10 @@ import {
 } from 'lucide-react';
 import logo from './assets/LCM_Logo.jpeg';
 
-const WHATSAPP_NUMBER = '919999999999';
-const WHATSAPP_LINK = `https://wa.me/${WHATSAPP_NUMBER}?text=Hi%20LCM%20Services!%20I'm%20interested%20in%20your%20maintenance%20services.`;
+const WHATSAPP_NUMBER1 = '918796538504';
+const WHATSAPP_NUMBER2 = '918796428504';
 const EMAIL_ADDRESS = 'contact@lcmservices.in';
+const WHATSAPP_LINK = `https://wa.me/${WHATSAPP_NUMBER1}?text=Hi%20LCM%20Services!%20I'm%20interested%20in%20your%20maintenance%20services.`;
 
 interface PricingPlan {
   id: string;
@@ -759,7 +760,8 @@ function ContactSection() {
                   </div>
                   <div>
                     <p className="font-semibold text-gray-900">Phone</p>
-                    <a href="tel:+919999999999" className="text-gray-600 hover:text-primary-600">+91 99999 99999</a>
+                    <a href={`tel:${WHATSAPP_NUMBER1}`} className="text-gray-600 hover:text-primary-600">+91 {WHATSAPP_NUMBER1}</a>, &nbsp;
+                    <a href={`tel:${WHATSAPP_NUMBER2}`} className="text-gray-600 hover:text-primary-600">+91 {WHATSAPP_NUMBER2}</a>
                   </div>
                 </div>
 
@@ -954,7 +956,11 @@ function Footer() {
             <ul className="space-y-3">
               <li className="flex items-center gap-2 text-gray-400">
                 <Phone className="w-4 h-4" />
-                <span>+91 99999 99999</span>
+                <span>+91 {WHATSAPP_NUMBER1}</span>
+              </li>
+               <li className="flex items-center gap-2 text-gray-400">
+                <Phone className="w-4 h-4" />
+                <span>+91 {WHATSAPP_NUMBER2}</span>
               </li>
               <li className="flex items-center gap-2 text-gray-400">
                 <Mail className="w-4 h-4" />

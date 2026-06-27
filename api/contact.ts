@@ -112,7 +112,7 @@ export default async function handler(
       from: `"LCM Services Website" <${process.env.SMTP_USER}>`,
       to: process.env.MAIL_TO,
       //replyTo: email,
-      subject: `New Inquiry - ${safeName}/{safePhone}`,
+      subject: `New Inquiry - ${safeName}/${safePhone}`,
       text: `
 New Contact Form Submission
 

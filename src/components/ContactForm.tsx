@@ -18,6 +18,8 @@ interface ApiResponse {
 export default function ContactForm() {
   const [loading, setLoading] = useState<boolean>(false);
   const [submitted, setSubmitted] = useState(false);
+  const [phoneError, setPhoneError] = useState<string>('');
+
 
   const [form, setForm] = useState<ContactFormData>({
     name: "",
@@ -30,16 +32,43 @@ export default function ContactForm() {
   const handleChange = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
+    const { name, value } = e.target;
+    if (name === "phone") {
+        // Only allow digits AND prevent entering more than 10 digits
+        if ((/^\d*$/.test(value)) && (value.length <= 10)) {
+            setForm((prev) => ({
+                ...prev,
+                [name]: value,
+            }));
+        }
+        return; 
+    }
     setForm((prev) => ({
       ...prev,
-      [e.target.name]: e.target.value,
+      [name]: value,
     }));
+  };
+
+  const handleBlur = (e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    if (e.target.name === "phone") {
+      if (form.phone.length > 0 && form.phone.length < 10) {
+        setPhoneError("Please enter 10 digits number.");
+      } else if (form.phone.length === 0) {
+        setPhoneError("Phone number is required.");
+      } else {
+        setPhoneError("");
+      }
+    }
   };
 
   const handleSubmit = async (
     e: FormEvent<HTMLFormElement>
   ): Promise<void> => {
     e.preventDefault();
+     if (form.phone.length !== 10) {
+      setPhoneError("Please enter 10 digits number.");
+      return;
+    }
     setLoading(true);
     try {
       const response = await fetch("/api/contact", {
@@ -107,8 +136,10 @@ export default function ContactForm() {
                         placeholder="10 digit Phone Number"
                         value={form.phone}
                         onChange={handleChange}
+                        onBlur={handleBlur}
                         className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
                     />
+                     {phoneError && <p style={{ color: 'red', fontSize: '14px' }}>{phoneError}</p>}
                   </div>
                 </div>
 
@@ -125,7 +156,7 @@ export default function ContactForm() {
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">Building/Society Name *</label>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">Building/Society/Area Name *</label>
                     <input
                         required
                         type="text"

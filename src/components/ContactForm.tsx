@@ -32,20 +32,9 @@ export default function ContactForm() {
   const handleChange = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
-    const { name, value } = e.target;
-    if (name === "phone") {
-        // Only allow digits AND prevent entering more than 10 digits
-        if ((/^\d*$/.test(value)) && (value.length <= 10)) {
-            setForm((prev) => ({
-                ...prev,
-                [name]: value,
-            }));
-        }
-        return; 
-    }
     setForm((prev) => ({
       ...prev,
-      [name]: value,
+      [e.target.name]: e.target.value,
     }));
   };
 
@@ -179,7 +168,7 @@ export default function ContactForm() {
                         className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors resize-none"
                     />
                 </div>
-                {phoneError && <p style={{ color: 'red', fontSize: '14px' }}>{phoneError}</p>}
+                {phoneError && <p style={{ color: 'red', fontSize: '14px', alignItems:"center" }}>{phoneError}</p>}
                 <button
                   type="submit"
                   disabled={loading}

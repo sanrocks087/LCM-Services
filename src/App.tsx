@@ -716,45 +716,19 @@ function FAQSection() {
 }
 
 function ContactSection() {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    building: '',
-    message: '',
-  });
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitted, setSubmitted] = useState(false);
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-
-    const mailtoLink = `mailto:${EMAIL_ADDRESS}?subject=Contact from ${formData.name} - ${formData.building}&body=Name: ${formData.name}%0AEmail: ${formData.email}%0APhone: ${formData.phone}%0ABuilding: ${formData.building}%0A%0AMessage: ${formData.message}`;
-
-    window.location.href = mailtoLink;
-
-    setTimeout(() => { 
-      setIsSubmitting(false);
-      setSubmitted(true);
-      setFormData({ name: '', email: '', phone: '', building: '', message: '' });
-    }, 1000);
-  };
-
   return (
     <> 
     <section id="contact" className="py-16 md:py-24 bg-white">
       <div className="section-container">
         <h2 className="section-title">Get in <span className="gradient-text">Touch</span></h2>
         <p className="section-subtitle">
-          Ready to transform your building maintenance? Contact us today..
+          Ready to transform your building maintenance? Contact us today.
         </p>
-        <ContactForm />
+        
         <div className="grid lg:grid-cols-2 gap-12">
           <div>
             <div className="bg-gradient-to-br from-primary-50 to-secondary-50 rounded-3xl p-8 h-full">
               <h3 className="text-2xl font-bold text-gray-900 mb-6">Contact Information</h3>
-
               <div className="space-y-6">
                 <div className="flex items-start gap-4">
                   <div className="w-12 h-12 bg-primary-500 rounded-xl flex items-center justify-center flex-shrink-0">
@@ -808,97 +782,8 @@ function ContactSection() {
               </div>
             </div>
           </div>
-
-          <div>
-            {submitted ? (
-              <div className="bg-gradient-to-br from-primary-500 to-secondary-500 rounded-3xl p-8 text-white text-center h-full flex flex-col items-center justify-center animate-fade-in">
-                <CheckCircle className="w-16 h-16 mb-4" />
-                <h3 className="text-2xl font-bold mb-2">Thank You!</h3>
-                <p className="text-white/90">Your message has been sent. We will get back to you within 2 hours.</p>
-              </div>
-            ) : (
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <div className="grid sm:grid-cols-2 gap-6">
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">Your Name *</label>
-                    <input
-                      type="text"
-                      required
-                      value={formData.name}
-                      onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                      className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
-                      placeholder="Rajesh Kumar"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">Phone Number *</label>
-                    <input
-                      type="tel"
-                      required
-                      value={formData.phone}
-                      onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                      className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
-                      placeholder="+91 98765 43210"
-                    />
-                  </div>
-                </div>
-
-                <div className="grid sm:grid-cols-2 gap-6">
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">Email</label>
-                    <input
-                      type="email"
-                      value={formData.email}
-                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                      className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
-                      placeholder="rajesh@example.com"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">Building/Society Name *</label>
-                    <input
-                      type="text"
-                      required
-                      value={formData.building}
-                      onChange={(e) => setFormData({ ...formData, building: e.target.value })}
-                      className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
-                      placeholder="Green View Apartments"
-                    />
-                  </div>
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Message *</label>
-                  <textarea
-                    required
-                    rows={4}
-                    value={formData.message}
-                    onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                    className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors resize-none"
-                    placeholder="Tell us about your building and maintenance needs..."
-                  />
-                </div>
-
-                <button
-                  type="submit"
-                  disabled={isSubmitting}
-                  className="btn-primary w-full flex items-center justify-center gap-2 text-lg py-4"
-                >
-                  {isSubmitting ? (
-                    <>
-                      <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
-                      Sending...
-                    </>
-                  ) : (
-                    <>
-                      <Send className="w-5 h-5" />
-                      Send Message
-                    </>
-                  )}
-                </button>
-              </form>
-            )}
-          </div>
+          <ContactForm />
+         
         </div>
       </div>
     </section>
